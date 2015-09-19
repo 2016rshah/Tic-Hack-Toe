@@ -12,3 +12,7 @@ Programmed in Haskell with :heart: at Hack the North 2015.
 	$ cabal install Tic-Tac-Toe
 	$ Tic-Tac-Toe
 
+#Name
+
+<b>Tic-Hack-Toe</b>. Get it? Because the Tic-Tac-To game was made at a <b>hack</b>athon and also because it was made in <b>H</b>askell :sunglasses:.
+
