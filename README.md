@@ -1,4 +1,4 @@
-#[TicTacToe](https://hackage.haskell.org/package/Tic-Tac-Toe-0.1.0.2)
+#[Tic-Hack-Toe](https://hackage.haskell.org/package/Tic-Tac-Toe-0.1.0.2)
 
 ![Game Gif](screen_shots/game.gif)
 
