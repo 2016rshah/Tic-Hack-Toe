@@ -1,5 +1,7 @@
 #TicTacToe
 
+![Game Gif](screen_shots/game.gif)
+
 Bored, tired, or just need a break? Play a quick game of tic tac toe against your computer in the command line!
 
 Programmed in Haskell with :heart: at Hack the North 2015.
@@ -10,12 +12,3 @@ Programmed in Haskell with :heart: at Hack the North 2015.
 	$ cabal install Tic-Tac-Toe
 	$ Tic-Tac-Toe
 
-#Screenshots
-
-![Player wins](screen_shots/player.png)
-
-![Computer wins](screen_shots/computer.png)
-
-![Draw](screen_shots/draw.png)
-
-TicTacToe in Haskell. Created with :heart: at Hack The North 2015. 
