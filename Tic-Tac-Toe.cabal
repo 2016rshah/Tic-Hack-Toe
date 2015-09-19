@@ -5,7 +5,7 @@ name:                Tic-Tac-Toe
 version:             0.1.0.2
 synopsis:            Tic Tac Toe in your command line!
 description:         Bored, tired, or just need a break? Play a quick game of tic tac toe against your computer in the command line!
-homepage:            https://github.com/2016rshah/Tic-Tac-Toe
+homepage:            https://github.com/2016rshah/Tic-Hack-Toe
 license:             Apache-2.0
 license-file:        LICENSE
 author:              Rushi Shah
@@ -33,4 +33,4 @@ executable Tic-Tac-Toe
 
 source-repository head
   type: git
-  location: https://github.com/2016rshah/Tic-Tac-Toe.git
+  location: https://github.com/2016rshah/Tic-Hack-Toe.git
