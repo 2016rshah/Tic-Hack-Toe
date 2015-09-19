@@ -52,8 +52,10 @@ draw b = length (possibleMoves b) == 0
 
 --Message to display to the user about the results of the game
 winner :: Board -> String
-winner b = head [if a == (Right X) then "The computer wins!" else "You win!" | curr@[a,b,c] <- allConfigs, full curr]
-	where allConfigs = ((rows b) ++ (cols b) ++ (diags b))
+winner b = if length winnerType > 0 then head winnerType else "It was a draw!"
+	where 
+		allConfigs = ((rows b) ++ (cols b) ++ (diags b))
+		winnerType = [if a == (Right X) then "The computer wins!" else "You win!" | curr@[a,b,c] <- allConfigs, full curr]
 
 rows :: Board -> [Three]
 rows (Board x@[a, b, c] y@[d, e, f] z@[g, h, i]) = [x, y, z]

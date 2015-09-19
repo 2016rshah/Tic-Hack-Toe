@@ -27,8 +27,7 @@ endRecursion b = do
 playerMove :: Board -> IO ()
 playerMove board = do
 	putStrLn (show board)
-	--putStr "Enter the number where you want to place your O: "
-	loc <- promptLine "Enter the number where you want to place your O: "
+	loc <- promptLine "Where do you want to place your O? "
 	putStrLn ""
 	let moveLoc = Left (read loc)
 	let newBoard = findAndReplace board moveLoc (Right O)
