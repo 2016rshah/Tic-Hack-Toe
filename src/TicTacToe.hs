@@ -47,6 +47,14 @@ full ts@[a,b,c] = noLefts && allEqual
 won :: Board -> Bool
 won b = foldl (\acc curr -> acc || (full curr)) False ((rows b) ++ (cols b) ++ (diags b))
 
+draw :: Board -> Bool
+draw b = length (possibleMoves b) == 0
+
+--Message to display to the user about the results of the game
+winner :: Board -> String
+winner b = head [if a == (Right X) then "The computer wins!" else "You win!" | curr@[a,b,c] <- allConfigs, full curr]
+	where allConfigs = ((rows b) ++ (cols b) ++ (diags b))
+
 rows :: Board -> [Three]
 rows (Board x@[a, b, c] y@[d, e, f] z@[g, h, i]) = [x, y, z]
 
@@ -91,5 +99,7 @@ makeXMove board@(Board x@[a, b, c] y@[d, e, f] z@[g, h, i])
 	| isJust (forkX board) = fromJust (forkX board)
 	| isJust (blockOFork board) = fromJust (blockOFork board)
 	| e `elem` (possibleMoves board) = findAndReplace board e (Right X)
-	| otherwise = findAndReplace board (head (possibleMoves board)) (Right X)
+	| otherwise = if length (possibleMoves board) > 0 
+		then findAndReplace board (head (possibleMoves board)) (Right X)
+		else board 
 

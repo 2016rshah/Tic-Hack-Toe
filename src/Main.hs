@@ -1,34 +1,45 @@
 module Main where
 
 import TicTacToe
+import System.IO
+
 
 main :: IO ()
 main = do
-	putStrLn "Welcome to tic tac toe. Where do you want to move first?"
+	putStrLn "Welcome to tic tac toe."
 
-	let board1 = emptyBoard
-	putStrLn (show board1)
-	loc1 <- getLine
-	let moveLoc1 = read loc1
-	let board2 = findAndReplace board1 (Left moveLoc1) (Right O)
+	--start recursion
+	playerMove emptyBoard
 
-	let board3 = makeXMove board2
-	putStrLn (show board3)
-	loc2 <- getLine
-	let moveLoc2 = read loc2
-	let board4 = findAndReplace board3 (Left moveLoc2) (Right O)
+	putStrLn "Thanks for playing!"
 
-	let board5 = makeXMove board4
-	putStrLn (show board5)
-	loc3 <- getLine
-	let moveLoc3 = read loc3
-	let board6 = findAndReplace board5 (Left moveLoc3) (Right O)
+promptLine :: String -> IO String
+promptLine text = do
+    putStr text
+    hFlush stdout
+    getLine
 
-	let board7 = makeXMove board6
-	putStrLn (show board7)
-	loc4 <- getLine
-	let moveLoc4 = read loc4
-	let board8 = findAndReplace board7 (Left moveLoc4) (Right O)
+endRecursion :: Board -> IO ()
+endRecursion b = do
+	putStrLn (show b)
+	putStrLn (winner b) -- end recursion
 
+playerMove :: Board -> IO ()
+playerMove board = do
+	putStrLn (show board)
+	--putStr "Enter the number where you want to place your O: "
+	loc <- promptLine "Enter the number where you want to place your O: "
+	putStrLn ""
+	let moveLoc = Left (read loc)
+	let newBoard = findAndReplace board moveLoc (Right O)
+	if won newBoard || draw newBoard
+		then endRecursion newBoard
+		else compMove newBoard			-- continue recursion
 
-	putStrLn (show board8)
+compMove :: Board -> IO ()
+compMove board = do
+	let newBoard = makeXMove board
+	if won newBoard || draw newBoard
+		then endRecursion newBoard 	-- end recursion
+		else playerMove newBoard 	-- continue recursion
+
