@@ -1,11 +1,12 @@
-{-# LANGUAGE FlexibleInstances #-}
 module TicTacToe where
+
+{-# LANGUAGE FlexibleInstances #-}
+
 
 import Data.Either
 import Safe
 import Data.Maybe
 import Data.List
-import Data.List.Split
 
 -- |Slots in the board can either be filled with Naughts or Crosses
 data Symbol = X | O 
@@ -20,10 +21,6 @@ type Three = [Piece] -- how do I constrain this to a length of three?
 -- |The game board is made up of three rows of three pieces each. 
 data Board = Board Three Three Three
 	deriving (Eq)
-
---instance Show Board where
---	show board@(Board x@[a, b, c] y@[d, e, f] z@[g, h, i]) 
---		= intercalate "\n" (chunksOf 3 (map showHuman (boardToList board)))
 
 --Thank you to http://projects.haskell.org/operational/examples/TicTacToe.hs.html for the show function
 instance Show Board where
