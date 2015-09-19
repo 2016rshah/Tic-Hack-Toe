@@ -21,11 +21,19 @@ type Three = [Piece] -- how do I constrain this to a length of three?
 data Board = Board Three Three Three
 	deriving (Eq)
 
-instance Show Board where
-	show board@(Board x@[a, b, c] y@[d, e, f] z@[g, h, i]) 
-		= intercalate "\n" (chunksOf 3 (map showHuman (boardToList board)))
+--instance Show Board where
+--	show board@(Board x@[a, b, c] y@[d, e, f] z@[g, h, i]) 
+--		= intercalate "\n" (chunksOf 3 (map showHuman (boardToList board)))
 
---show (Board x@[a, b, c] y@[d, e, f] z@[g, h, i]) = intercalate "\n" (map show (x:y:z:[]))
+--Thank you to http://projects.haskell.org/operational/examples/TicTacToe.hs.html for the show function
+instance Show Board where
+	show board =
+	      unlines . surround "+---+---+---+"
+	    . map (concat . surround "|". map showSquare)
+	    $ (rows board)
+	    where
+	    surround x xs = [x] ++ intersperse x xs ++ [x]
+	    showSquare = either (\n -> " " ++ show n ++ " ") (\n -> " " ++ show n ++ " ")
 
 emptyBoard :: Board
 emptyBoard = Board [Left 1, Left 2, Left 3] [Left 4, Left 5, Left 6] [Left 7, Left 8, Left 9]
@@ -84,5 +92,4 @@ makeXMove board@(Board x@[a, b, c] y@[d, e, f] z@[g, h, i])
 	| isJust (blockOFork board) = fromJust (blockOFork board)
 	| e `elem` (possibleMoves board) = findAndReplace board e (Right X)
 	| otherwise = findAndReplace board (head (possibleMoves board)) (Right X)
-
 
