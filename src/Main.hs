@@ -26,14 +26,14 @@ endRecursion b = do
 	putStrLn (show b)
 	putStrLn (winner b) -- end recursion
 
--- |Grab the user's move, and feed that to tic-tac-toe. Recurse as needed. 
+-- |Grab the user's move, and feed that to tic-tac-toe. Recurse as needed.
 playerMove :: Board -> IO ()
 playerMove board = do
 	putStrLn (show board)
-	loc <- promptLine "Where do you want to place your O? "
+	loc <- promptLine "Where do you want to place your X? "
 	putStrLn ""
 	let moveLoc = Left (read loc)
-	let newBoard = findAndReplace board moveLoc (Right O)
+	let newBoard = findAndReplace board moveLoc (Right X)
 	if won newBoard || draw newBoard
 		then endRecursion newBoard
 		else compMove newBoard			-- continue recursion
@@ -45,4 +45,3 @@ compMove board = do
 	if won newBoard || draw newBoard
 		then endRecursion newBoard 	-- end recursion
 		else playerMove newBoard 	-- continue recursion
-
