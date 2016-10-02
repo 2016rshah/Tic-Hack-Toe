@@ -41,7 +41,7 @@ playerMove board = do
 -- |Make a decision based on the board on where to move. Recurse as needed.
 compMove :: Board -> IO ()
 compMove board = do
-	let newBoard = makeXMove board
+	let newBoard = makeOMove board
 	if won newBoard || draw newBoard
 		then endRecursion newBoard 	-- end recursion
 		else playerMove newBoard 	-- continue recursion

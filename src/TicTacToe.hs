@@ -88,32 +88,32 @@ findAndReplace b p1 p2 = listToBoard [if x==p1 then p2 else x | x <- bl]
 	where bl = boardToList b
 
 -- |Check if O's can immediately win, and if so, do it
-winningXMove :: Board -> Maybe Board
-winningXMove b = headMay [findAndReplace b p (Right O) | p <- (possibleMoves b), won (findAndReplace b p (Right O))]
+winningOMove :: Board -> Maybe Board
+winningOMove b = headMay [findAndReplace b p (Right O) | p <- (possibleMoves b), won (findAndReplace b p (Right O))]
 
 -- |Check if X's can immediately win, and if so, block it
-blockOWin :: Board -> Maybe Board
-blockOWin b = headMay [findAndReplace b p (Right O) | p <- (possibleMoves b), won (findAndReplace b p (Right X))]
+blockXWin :: Board -> Maybe Board
+blockXWin b = headMay [findAndReplace b p (Right O) | p <- (possibleMoves b), won (findAndReplace b p (Right X))]
 
 -- |Check whether a board has been forked
 isFork :: Board -> Bool
 isFork b = 2 == length [findAndReplace b p (Right O) | p <- (possibleMoves b), won (findAndReplace b p (Right O))]
 
 -- |Check if O's can make a fork, and if so, do it
-forkX :: Board -> Maybe Board
-forkX b = headMay [findAndReplace b p (Right O) | p <- (possibleMoves b), isFork (findAndReplace b p (Right O))]
+forkO :: Board -> Maybe Board
+forkO b = headMay [findAndReplace b p (Right O) | p <- (possibleMoves b), isFork (findAndReplace b p (Right O))]
 
 -- |Check if X's can make a fork, and if so, block it
-blockOFork :: Board -> Maybe Board
-blockOFork b = headMay [findAndReplace b p (Right O) | p <- (possibleMoves b), isFork (findAndReplace b p (Right X))]
+blockXFork :: Board -> Maybe Board
+blockXFork b = headMay [findAndReplace b p (Right O) | p <- (possibleMoves b), isFork (findAndReplace b p (Right X))]
 
 -- |Decision tree for AI that will go down the list to make its move
-makeXMove :: Board -> Board
-makeXMove board@(Board x@[a, b, c] y@[d, e, f] z@[g, h, i])
-	| isJust (winningXMove board) 	= fromJust (winningXMove board)
-	| isJust (blockOWin board) 		= fromJust (blockOWin board)
-	| isJust (forkX board) 			= fromJust (forkX board)
-	| isJust (blockOFork board) 	= fromJust (blockOFork board)
+makeOMove :: Board -> Board
+makeOMove board@(Board x@[a, b, c] y@[d, e, f] z@[g, h, i])
+	| isJust (winningOMove board) 	= fromJust (winningOMove board)
+	| isJust (blockXWin board) 		= fromJust (blockXWin board)
+	| isJust (forkO board) 			= fromJust (forkO board)
+	| isJust (blockXFork board) 	= fromJust (blockXFork board)
 	| elem e (possibleMoves board)	= findAndReplace board e (Right O)
 	| otherwise 					= if length (possibleMoves board) > 0
 		then findAndReplace board (head (possibleMoves board)) (Right O)
