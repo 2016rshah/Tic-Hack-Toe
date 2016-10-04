@@ -30,7 +30,17 @@ instance Show Board where
 	    $ (rows board)
 	    where
 	    surround x xs = [x] ++ intersperse x xs ++ [x]
-	    showSquare = either (\n -> " " ++ show n ++ " ") (\n -> " " ++ show n ++ " ")
+        showSquare = either (\n -> " " ++ show n ++ " ") (\n -> color n)
+
+-- | \ESC[ for ANSI escape
+esc :: Int -> String
+esc i = concat ["\ESC[", show i, "m"]
+
+-- | Black=30, Red=31, Green=32, Yellow=33, Blue=34, Magenta=35, Cyan=36, White=37
+color :: Symbol -> String 
+color s
+        | s == X     = esc 32++" "++show s++" "++esc 0
+        | otherwise  = esc 31++" "++show s++" "++esc 0
 
 -- |Convenience function for constructing an empty board
 emptyBoard :: Board
