@@ -30,7 +30,7 @@ instance Show Board where
 	    $ (rows board)
 	    where
 	    surround x xs = [x] ++ intersperse x xs ++ [x]
-        showSquare = either (\n -> " " ++ show n ++ " ") (\n -> color n)
+	    showSquare = either (\n -> " " ++ show n ++ " ") (\n -> color n)
 
 -- | \ESC[ for ANSI escape
 esc :: Int -> String
